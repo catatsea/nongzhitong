@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>行业新闻</title>
+
+<link rel="stylesheet" type="text/css" href="css/public.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/common.css">
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/home_header.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/news_list.css">
+<script src="js/index.js"></script>
+<script src="js/common.js" charset="utf-8"></script>
+<script src="js/jquery.js"></script>
+<script src="js/dialog/dialog.js" id="dialog_js" charset="utf-8"></script>
+	<!-- 左侧分类菜单 -->
+	<script type="text/javascript">
+var PRICE_FORMAT = '&yen;%s';
+$(function(){
+	//首页左侧分类菜单
+	$(".category ul.menu").find("li").each(
+		function() {
+			$(this).hover(
+				function() {
+				    var cat_id = $(this).attr("cat_id");
+					var menu = $(this).find("div[cat_menu_id='"+cat_id+"']");
+					menu.show();
+					$(this).addClass("hover");
+					if(menu.attr("hover")>0) return;
+					menu.masonry({itemSelector: 'dl'});
+					var menu_height = menu.height();
+					if (menu_height < 60) menu.height(80);
+					menu_height = menu.height();
+					var li_top = $(this).position().top;
+					if ((li_top > 60) && (menu_height >= li_top)) $(menu).css("top",-li_top+50);
+					if ((li_top > 150) && (menu_height >= li_top)) $(menu).css("top",-li_top+90);
+					if ((li_top > 240) && (li_top > menu_height)) $(menu).css("top",menu_height-li_top+90);
+					if (li_top > 300 && (li_top > menu_height)) $(menu).css("top",60-menu_height);
+					if ((li_top > 40) && (menu_height <= 120)) $(menu).css("top",-5);
+					menu.attr("hover",1);
+				},
+				function() {
+					$(this).removeClass("hover");
+				    var cat_id = $(this).attr("cat_id");
+					$(this).find("div[cat_menu_id='"+cat_id+"']").hide();
+				}
+			);
+		}
+	);
+	$(".head-user-menu dl").hover(function() {
+		$(this).addClass("hover");
+	},
+	function() {
+		$(this).removeClass("hover");
+	});
+	$('.head-user-menu .my-mall').mouseover(function(){// 最近浏览的商品
+		load_history_information();
+		$(this).unbind('mouseover');
+	});
+	$('.head-user-menu .my-cart').mouseover(function(){// 运行加载购物车
+		load_cart_information();
+		$(this).unbind('mouseover');
+	});
+	$('#button').click(function(){
+	    if ($('#keyword').val() == '') {
+		    return false;
+	    }
+	});
+    });
+
+$(function(){
+	//search
+	$("#searchTab").children('ul').children('li').click(function(){
+		$('#keyword').attr("placeholder",$(this).attr("title"));
+		$(this).parent().children('li').removeClass("current");
+		$(this).addClass("current");
+        $("#form_search").attr("action", $(this).attr("action"));
+        $("#act").val($(this).attr("act"));
+        $("#op").val($(this).attr("op"));
+	});
+    var search_current_item = $("#searchTab").children('ul').children('li.current');
+    $("#form_search").attr("action", search_current_item.attr("action"));
+    $("#act").val(search_current_item.attr("act"));
+    $("#op").val(search_current_item.attr("op"));
+});
+</script>
+</head>
+<body>
+
+<div class="public-top-layout w">
+  <div class="topbar wrapper">
+    <div class="user-entry">
+            您好，欢迎来到 <a href="http://.com" title="首页" alt="首页">大诚通用航空</a> <span>[<a href="http://www..com/shop/index.php?act=login&op=index">登录</a>]</span> <span>[<a href="http://www..com/shop/index.php?act=login&op=register">注册</a>]</span>
+      <!--<span style="margin-left:10px;"><a href="index.php?act=invite" style="color:red;">邀请返利</a></span>-->
+    </div>
+    <div class="quick-menu">
+      <dl>
+        <dt><a href="http://.com/wap">用户中心</a></dt>
+      </dl>
+	  <dl>
+        <dt><a href="http://www..com/shop/index.php?act=show_joinin&op=index" title="我的订单">我的订单</a><i></i></dt>
+        
+      </dl>
+      <dl>
+        <dt><a href="http://www..com/shop/index.php?act=member_order">帮助中心</a><i></i></dt>
+        
+      </dl>
+      <dl>
+        <dt><a href="http://www..com/shop/index.php?act=member_favorites&op=fglist">退出</a><i></i></dt>
+        
+    </div>
+  </div>
+</div>
+
+	<!-- #head-top -->
+	<div id="head-top">
+		<div class="contents clearfix">
+			<div class="fl logo">
+				<a href="/">
+					<img src="images/植保通.jpg" alt="" width="148" height="144">
+				</a>
+			</div>
+			<!-- 搜索框 -->
+			<div class="fl search-nav" id="search">
+				<form id="form_search" method="get" action=""  class="search-form">
+				<input id="act" name="act" type="hidden" />
+                <input id="op" name="op" type="hidden" />
+					<div id="searchTxt" class="searchTxt">
+						<div class="radius" style="top:-2px;"></div>
+						<div class="radius" style="top:31px;"></div>
+
+						<div class="searchMenu">
+
+							<div class="searchSelected" id="searchSelected">
+							商品</div>
+
+							<div style="display:none;" class="searchTab" id="searchTab">
+								<div class="radius" style="top:259px;"></div>
+								<div class="radius" style="top:259px;left:59px;"></div>
+								<ul>
+									<li title="请输入您要搜索的商品关键字" action="http://www..com/shop/index.php" act="search" op="search" class="current">商品</li>
+									<li title="请输入您要搜索的店铺关键字" action="http://www..com/shop/index.php" act="store_list" op="search">店铺</li>
+									<li title="请输入您要搜索的资讯关键字" action="http://www..com/cms/index.php" act="article" op="article_search">资讯</li>
+                                    <li title="请输入您要搜索的品牌关键字" action="http://www..com/shop/index.php" act="brand" op="list">品牌</li>
+								</ul>
+							</div>
+
+						</div>
+
+						<input placeholder="请输入您要搜索的商品关键字" style="border:none;" name="keyword" id="keyword" type="text" value="" maxlength="60" x-webkit-speech lang="zh-CN" onwebkitspeechchange="foo()" x-webkit-grammar="builtin:search" />
+					</div>
+
+					<div class="searchBtn">
+						<button id="button" type="submit" value="搜索">搜索</button>
+					</div>
+					<div class="clearfix"></div>
+				</form>
+					  <!--搜索关键字-->
+      <div class="keyword">热门搜索：        <ul>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E6%8A%97%E8%8F%8C%E7%B1%BB" >抗菌类</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E6%8A%97%E7%97%85%E6%AF%92">抗病毒</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E4%BF%83%E5%85%8D%E7%B1%BB">促免类</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E4%B8%93%E4%B8%9A%E6%B6%88%E6%AF%92">专业消毒</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E7%8C%AA">猪</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E9%B8%A1">鸡</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E5%85%BD%E8%8D%AF">兽药</a></li>
+                    <li><a href="http://www..com/shop/index.php?act=search&op=index&keyword=%E5%9C%9F%E7%89%B9%E4%BA%A7">土特产</a></li>
+                  </ul>
+      </div>
+			</div>
+			<!-- 购物车 -->
+			<div class="head-user-menu">
+				<dl class="my-cart">
+                <dt><span class="ico"></span>购物车结算<i class="arrow"></i></dt>
+		        <dd>
+		          <div class="sub-title">
+		            <h4>最新加入的商品</h4>
+		          </div>
+		          <div class="incart-goods-box">
+		            <div class="incart-goods"><div class="no-order"><span>您的购物车中暂无商品，赶快选择心爱的商品吧！</span></div></div>
+		          </div>
+		          <div class="checkout"> <span class="total-price"></span><a href="http://www..com/shop/index.php?act=cart" class="btn-cart">结算购物车中的商品</a> </div>
+		        </dd>
+		      </dl>
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- 导航 -->
+	<div id="navOut">
+    <div class="navs" >
+        <div class="navLeft">
+            <p>全部产品分类</p>
+	       	<ul id="navs" style="display: none;" >
+                              			   <li id="mainCate-1" class="mainCate evenLeval" >
+				 <h3><span>&gt;</span>饲料 添加剂</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=2" title="预混料">预混料</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=9" title="全价料">全价料</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=10" title="浓缩料">浓缩料</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=46" title="原料">原料</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=47" title="其他">其他</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=763" title="氨基酸">氨基酸</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=770" title="维生素">维生素</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=785" title="复合维生素">复合维生素</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=793" title="复合矿物质">复合矿物质</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=800" title="矿物质">矿物质</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=807" title="微量元素">微量元素</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=819" title="抗生素">抗生素</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=832" title="功能性添加剂">功能性添加剂</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=846" title="营养性物质">营养性物质</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=856" title="环保系列">环保系列</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=2">预混料</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=11">猪预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=12">蛋鸡预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=13">肉鸡预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=14">蛋鸭预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=15">肉鸭预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=16">水产预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=17">牛预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=18">羊预混料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=19">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=9">全价料</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=20">教槽料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=21">乳猪料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=22">育肥猪配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=23">母猪配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=24">种公猪配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=25">蛋鸡配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=26">肉鸡配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=27">蛋鸭配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=28">肉鸭配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=29">奶牛配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=30">肉牛精料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=31">水产配合料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=32">特种养殖配合饲料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=33">羊配合饲料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=34">兔配合饲料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=35">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=10">浓缩料</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=36">猪浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=37">蛋鸡浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=38">肉鸡浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=39">蛋鸭浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=40">肉鸭浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=41">奶牛浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=42">水产浓缩料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=43">特种养殖配合饲料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=44">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=46">原料</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=62">蛋白原料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=63">能量原料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=64">青贮饲料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=65">动物源性原料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=66">中药原料</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=67">糟渣</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=470">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=47">其他</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=763">氨基酸</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=764">赖氨酸</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=765">苏氨酸</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=766">蛋氨酸</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=767">色氨酸</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=768">其他</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=769">氨基酸衍生物</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=770">维生素</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=771">维生素A</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=772">维生素B1</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=773">维生素B2</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=774">维生素B6</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=775">维生素B12</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=776">维生素C</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=777">维生素D3</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=778">维生素E</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=779">维生素K3</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=780">烟酸</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=781">泛酸钙</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=782">生物素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=783">胆碱</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=784">肌醇</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=785">复合维生素</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=786">肉鸭多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=787">蛋种鸭多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=788">蛋种鸡多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=789">肉鸡多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=790">蛋鸡多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=791">肉种鸡鸭多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=792">猪用多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=870">复合维生素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=873">种禽用多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=874">畜用多维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=875">复合多维</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=793">复合矿物质</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=794">猪用多矿</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=795">肉鸡多矿</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=796">肉鸭多矿</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=797">蛋鸡多矿</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=798">蛋种鸡鸭多矿</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=799">肉种鸡鸭多矿</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=800">矿物质</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=801">沸石粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=802">磷酸氢钙</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=803">磷酸二氢钙</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=804">元明粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=805">小苏打</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=806">氯化钠</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=807">微量元素</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=808">硫酸镁</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=809">硫酸锌</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=810">硫酸亚铁</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=811">硫酸铜</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=812">硫酸锰</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=813">氧化锌</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=814">氯化钴</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=815">氯化钾</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=816">亚硒酸钠</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=817">氧化镁</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=818">碘酸钙</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=819">抗生素</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=820">金霉素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=821">盐霉素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=822">土霉素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=823">杆菌肽锌</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=824">莫能菌素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=825">硫酸粘杆菌素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=826">黄霉素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=827">大蒜素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=828">速大肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=829">牛至油</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=830">地克珠利</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=831">吉他霉素</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=832">功能性添加剂</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=833">促生长剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=834">酶制剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=835">中草药物</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=836">驱虫药物</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=837">抗菌药物</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=838">香味剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=839">甜味剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=840">着色剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=841">粘合剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=842">抗氧化剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=843">防霉剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=844">脱霉剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=845">有益菌</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=869">解毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=883">维生素</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=846">营养性物质</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=847">乳清粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=848">鱼粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=849">肠膜蛋白粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=850">血浆蛋白粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=851">血球蛋白粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=852">代乳粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=853">肉骨粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=854">葡萄糖</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=855">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=856">环保系列</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=885">益生菌</a>
+                           						    						</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		  			   <li id="mainCate-2" class="mainCate" >
+				 <h3><span>&gt;</span>兽药 原料</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=68" title="家畜/猪牛羊用药">家畜/猪牛羊用药</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=69" title="家禽/鸡鸭鹅用药">家禽/鸡鸭鹅用药</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=70" title="水产/鱼虾蟹用药">水产/鱼虾蟹用药</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=71" title="宠物/狗猫用药">宠物/狗猫用药</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=72" title="皮毛动物/狐貂貉用药">皮毛动物/狐貂貉用药</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=74" title="兽药原料">兽药原料</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=68">家畜/猪牛羊用药</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=79">抗菌消炎类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=80">反刍增食类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=81">解热镇痛类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=82">消毒防腐类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=83">安宫保胎类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=84">驱虫健胃类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=85">抗病毒类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=86">营养保健类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=87">抗血液原虫类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=88">肠道用药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=89">解毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=90">呼吸道消炎类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=91">清热解毒类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=92">神经系统类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=94">其他</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=876">母猪专用</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=877">奶牛专用</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=69">家禽/鸡鸭鹅用药</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=95">抗病毒类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=96">营养保健类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=97">抗寄生虫类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=98">抗细菌类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=99">消毒防腐类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=100">促生长增蛋类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=101">肠道疾病类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=102">促免疫抗应激类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=103">呼吸道疾病类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=104">感染生殖类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=105">消毒清洗类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=857">其他</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=871">解毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=881">抗菌消炎类</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=70">水产/鱼虾蟹用药</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=106">增氧解毒剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=107">免疫增强剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=108">水质改良剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=109">水质调控剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=110">营养保健剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=111">消毒杀菌剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=112">消毒抗病毒剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=113">环境低质改良剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=872">解毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=882">抗菌消炎类</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=71">宠物/狗猫用药</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=116">抗菌消炎类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=117">解热镇痛类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=118">抗病毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=119">驱虫药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=120">消毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=121">解毒药</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=122">免疫保健类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=123">洗涤剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=124">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=72">皮毛动物/狐貂貉用药</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=125">止血凝血类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=126">防腐消毒类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=127">抗病毒类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=128">解毒利尿类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=129">健胃驱虫类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=130">解热镇痛类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=131">抗菌消炎类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=132">麻醉镇定类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=133">激素类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=134">神经系统类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=135">维生素类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=136">营养保健类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=139">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=74">兽药原料</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=142">抗菌素类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=143">抗寄生虫类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=144">辅料添加剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=145">解热镇痛类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=146">消毒防腐类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=147">中药提取物</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=148">其他</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=858">药物添加剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=859">磺胺类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=860">喹诺酮类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=861">抗病毒类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=862">激素类</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=880">中草药</a>
+                           						    						</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		  			   <li id="mainCate-3" class="mainCate evenLeval" >
+				 <h3><span>&gt;</span>种畜禽 设备器械</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=162" title="种猪">种猪</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=163" title="种牛">种牛</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=164" title="种羊">种羊</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=165" title="蛋鸡">蛋鸡</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=166" title="肉鸡">肉鸡</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=167" title="蛋鸭">蛋鸭</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=168" title="肉鸭">肉鸭</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=169" title="水产">水产</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=171" title="医疗器械">医疗器械</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=172" title="笼具围栏">笼具围栏</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=173" title="储运设备">储运设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=685" title="人工授精设备">人工授精设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=686" title="清洗消毒设备">清洗消毒设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=687" title="智能化养猪设备">智能化养猪设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=688" title="仪表仪器">仪表仪器</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=689" title="清粪设备">清粪设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=690" title="通风温控设备">通风温控设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=691" title="孵化育雏设备">孵化育雏设备</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=692" title="饲喂饮水器械">饲喂饮水器械</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=759" title="其他">其他</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=162">种猪</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=174">杜洛克</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=175">长白猪</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=176">大约克</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=177">皮特兰</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=178">二元母猪</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=179">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=163">种牛</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=188">鲁西黄牛</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=189">西门塔尔牛</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=190">利木赞牛</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=191">夏洛莱牛</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=192">改良肉牛</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=193">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=164">种羊</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=198">波尔山羊</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=199">小尾寒羊</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=200">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=165">蛋鸡</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=202">白壳系列</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=203">褐壳系列</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=204">粉壳系列</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=693">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=166">肉鸡</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=205">817</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=206">AA</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=207">三黄</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=208">青脚麻鸡</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=209">罗斯308</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=694">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=167">蛋鸭</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=210">康贝尔</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=211">麻鸭系列</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=212">金定鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=213">北京鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=214">江南系列</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=219">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=168">肉鸭</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=220">北京鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=221">天府肉鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=222">番鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=223">樱桃谷鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=224">枫叶鸭</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=226">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=169">水产</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=227">鱼苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=235">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=171">医疗器械</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=239">注射器</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=240">针头</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=241">手术刀</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=695">助产钳</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=696">止血钳</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=697">剪牙钳</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=698">断尾钳子</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=699">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=172">笼具围栏</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=242">母猪产床</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=243">单体栏</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=700">保育栏</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=701">公猪栏</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=702">产床地板</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=703">保育床地板</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=704">定位栏地板</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=705">地板模具</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=706">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=173">储运设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=244">传送带</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=245">手推车</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=246">捡蛋带</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=247">集蛋带</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=248">清粪车</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=249">散装料运输车</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=253">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=685">人工授精设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=707">稀释粉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=708">稀释液</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=709">润滑剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=710">输精管</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=711">假母台</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=712">恒温箱</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=713">采精杯</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=714">显微镜</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=715">恒温载物</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=716">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=686">清洗消毒设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=717">清洗车</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=718">消毒车</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=719">喷雾消毒</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=720">紫外线灯</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=721">火焰枪</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=722">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=687">智能化养猪设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=723">自动化养猪设备</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=724">母猪自动化设备</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=725">自动化配件</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=726">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=688">仪表仪器</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=727">温度计</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=728">湿度计</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=729">背标测量仪</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=730">诊断试剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=731">玉米水分测量仪</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=732">霉变测量仪</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=733">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=689">清粪设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=734">漏粪板</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=735">自动刮粪板</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=736">沼气工程</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=737">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=690">通风温控设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=738">风机</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=739">水帘</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=740">电热板</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=741">保温箱</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=742">保温灯</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=743">供暖设备</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=744">热风炉</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=745">降温喷头</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=746">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=691">孵化育雏设备</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=747">孵化箱</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=748">孵化机</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=749">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=692">饲喂饮水器械</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=750">补料槽</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=751">母猪槽</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=752">干湿料槽</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=753">自动补料槽</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=754">食槽模具</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=755">饮水器</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=756">饮水碗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=757">其他</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=759">其他</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=760">灯泡</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=761">其他</a>
+                           						    						</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		  			   <li id="mainCate-4" class="mainCate" >
+				 <h3><span>&gt;</span>生物制品</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=579" title="猪用疫苗">猪用疫苗</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=580" title="鸡用疫苗">鸡用疫苗</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=582" title="兔用疫苗">兔用疫苗</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=584" title="预防用">预防用</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=579">猪用疫苗</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=588">猪瘟疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=589">猪伪狂犬疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=590">蓝耳病疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=591">圆环病毒疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=592">口蹄疫疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=593">猪乙脑疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=594">细小病毒疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=595">传染性胃肠炎疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=596">猪气喘病疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=597">副猪嗜血杆菌疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=598">萎缩性鼻炎疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=599">猪肺疫疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=600">白痢红痢疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=601">猪链球菌疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=602">猪丹毒灭活疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=603">其他疫苗</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=580">鸡用疫苗</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=604">鸡马立克氏</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=605">传染性喉气管炎</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=606">鸡传染性支气管炎</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=607">鸡痘</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=608">传染性鼻炎</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=609">鸡脑脊髓炎</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=610">新支二联</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=611">减蛋综合症</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=612">新支流法四联苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=614">禽流感疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=616">新城疫疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=618">法氏囊疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=620">球虫疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=622">新支流三联苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=623">其他疫苗</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=582">兔用疫苗</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=647">大肠杆菌病疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=648">兔波氏杆菌疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=649">巴氏杆菌疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=650">兔瘟疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=652">魏氏梭菌疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=654">葡萄球菌病疫苗</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=655">其他疫苗</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=584">预防用</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=656">类毒素</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=657">γ -球蛋白</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=658">其他</a>
+                           						    						</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		  			   <li id="mainCate-5" class="mainCate evenLeval" >
+				 <h3><span>&gt;</span>进口产品</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=315" title="德国">德国</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=316" title="法国">法国</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=317" title="英国">英国</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=613" title="荷兰">荷兰</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=619" title="日本">日本</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=621" title="韩国">韩国</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=624" title="美国">美国</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=625" title="中国台湾">中国台湾</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=878" title="西班牙">西班牙</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=315">德国</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=865">卡纳</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=316">法国</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=321">鹰凯</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=867">法国新生</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=317">英国</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=863">普乐特新</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=613">荷兰</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=864">英乐维</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=868">泰高</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=619">日本</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=651">日本新水</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=621">韩国</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=624">美国</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=625">中国台湾</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=866">东菱药品</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=878">西班牙</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=879">百卫</a>
+                           						    						</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		  			   <li id="mainCate-6" class="mainCate" >
+				 <h3><span>&gt;</span>化肥 农药 种子</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=381" title="肥料">肥料</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=382" title="农药">农药</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=383" title="种子">种子</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=381">肥料</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=393">复（混）合肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=394">有机肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=395">冲施肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=396">叶面肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=397">菌肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=398">磷肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=399">氮肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=400">钾肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=483">水溶肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=484">微肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=485">育苗肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=486">营养土</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=487">增长剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=488">硫酸钾型</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=489">控释肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=490">镁肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=492">肥效激活剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=494">微生物菌剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=496">BB肥填充颗粒</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=498">拌种肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=500">钙肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=502">氨基酸肥</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=504">肥料增效剂</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=382">农药</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=403">除草剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=404">杀菌剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=405">植物调节剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=406">杀虫剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=407">种衣剂</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=408">农药残留降解剂</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=383">种子</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=410">蔬菜种子</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=411">瓜果种子</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=412">大田作物</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=413">芝麻</a>
+                           								<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=414">甜瓜</a>
+                           						    						</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		  			   <li id="mainCate-7" class="mainCate evenLeval" >
+				 <h3><span>&gt;</span>农机 农具</h3>
+				 <p style="overflow:hidden;">
+				 				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=333" title="农用飞行器">农用飞行器</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=334" title="吸粮机">吸粮机</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=335" title="杂粮加工生产线">杂粮加工生产线</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=336" title="田间管理机械">田间管理机械</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=337" title="插秧机">插秧机</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=338" title="摘果机">摘果机</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=339" title="装卸一体机">装卸一体机</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=340" title="玉米脱粒机">玉米脱粒机</a>
+				  				 <a href="http://www..com/shop/index.php?act=search&op=index&cate_id=341" title="施肥机">施肥机</a>
+				  				 </p>
+				 <div class="subCate">
+					<div class="menu-sub fl">
+											<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=333">农用飞行器</a></h4>
+						<div class="clearfix menu-subs">
+																					<a href="http://www..com/shop/index.php?act=search&op=index&cate_id=884">喷雾机</a>
+                           						    						</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=334">吸粮机</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=335">杂粮加工生产线</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=336">田间管理机械</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=337">插秧机</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=338">摘果机</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=339">装卸一体机</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=340">玉米脱粒机</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 						<h4><a href="http://www..com/shop/index.php?act=search&op=index&cate_id=341">施肥机</a></h4>
+						<div class="clearfix menu-subs">
+												</div>
+						 					</div>
+					<div class="menu-sub-rt">
+						<div class="menu-sub-pic">
+																											</div>
+						<div class="menu-tuijian">
+							<h4>推荐品牌</h4>
+							<ul>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=108" target="_blank">美乐丁</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=102" target="_blank">迅达康</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=100" target="_blank">康地恩</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=99" target="_blank">荐量</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=96" target="_blank">普尔泰</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=87" target="_blank">牧尔德</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=75" target="_blank">上善园</a>
+								</li>
+                            								<li>
+									<a href="index.php?act=brand&op=list&brand=24" target="_blank">永达集团</a>
+								</li>
+                            								<!--<li>
+									<a href="#">BONDA</a>
+								</li>
+								<li>
+									<a href="#">卜蜂集团</a>
+								</li>
+								<li>
+									<a href="#">宏展饲料</a>
+								</li>
+								<li>
+									<a href="#">恒辉农牧</a>
+								</li>
+								<li>
+									<a href="#">日本新水</a>
+								</li>
+								<li>
+									<a href="#">赛尔加农</a>
+								</li>
+								<li>
+									<a href="#">森隆药业</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				 </div>
+			   </li>
+		            			</ul>
+        </div>
+        <ul class="navRight">
+            <li class="active"><a href="http://.com">首页</a> <i></i></li>
+			<li ><a href="http://www..com/shop/index.php?act=brand&op=index">行业新闻</a><i></i></li>
+            <li ><a href="http://www..com/shop/index.php?act=show_groupgou&op=index">名企展示</a><i></i></li>
+			<li><a href="http://www..com/nmgyt">行业专家</a><i></i></li>
+            <li><a href="http://www..com/sell">资源整合</a><i></i></li>
+			<li><a href="http://www..com/exhibition">项目共享</a><i></i></li>
+            <li><a href="http://www..com/cms">预约业务</a><i></i></li>
+            <li><a href="http://www..com/talent">培训</a><i></i></li>
+			<li><a href="http://.com/bbs/">加盟代理</a><i></i></li>
+			
+        </ul>
+    </div>
+    </div>
+
+    <!-- 新闻 -->
+    <!--列表盒子-->
+<div class="product_big">
+<!--左边内容-->
+	<div class="product_left">
+		<div class="product_til"><h1>产品展示</h1></div>
+<!--产品列表-->
+		<div class="product_list">
+			<ul>
+				<a href=""><li>复合微生物肥系列</li></a>
+				<a href=""><li>复合微生物专用肥</li></a>
+				<a href=""><li>活土免耕肥</li></a>
+				<a href=""><li>冲施肥冲施肥</li></a>
+				<a href=""><li>微生物菌剂</li></a>
+				<a href=""><li>菌威</li></a>
+			</ul>
+		</div>
+<!--热销产品-->
+	<div class="hot_product">
+		<div class="hot_product_til"><span>热销产品</span>
+			 <a href="">复合微生物肥</a>
+			 <a href="">冲施肥</a>
+			 <a href="">免耕肥</a>
+		</div>
+	</div>
+<!--广告位-->
+	<div class="ad"><a href=""><img src="images/ad.jpg" width="275" height="110" /></a></div>
+<!--相关新闻-->
+	<div class="product_list_news">
+		<ul>
+			<li><a href="">复合微生物专用肥：硫基果树专用肥</a></li>
+			<li><a href="">冲施肥：液体冲施肥</a></li>
+			<li><a href="">微生物菌剂：改田换地</a></li>
+			<li><a href="">微生物菌剂：多种微量元素菌剂</a></li>
+		</ul>
+	</div>	
+<!--联系我们-->
+            <div class="contact">
+                <div class="contact_title"></div>
+                <p>We help you Solve problems</p>
+                <div class="contactPhone">
+                    <ul>
+                        <li>400-0391-986</li>
+                        <li>济源市玉泉办事处科技创业园</li>
+                    </ul>
+                </div>
+            </div>
+<!--左边内容结束-->
+	</div>
+<!--右边内容-->
+	<div class="product_right">
+<!--标题导航-->
+		<div class="product_right_til"><span>当前位置：<a href="">首页</a>　>　新闻动态</span></div>
+<!--新闻列表-->
+		<div class="news_list">
+			<ul>
+				<li class="pho"><a href=""><img src="images/news.jpg" width="120" height="80" /></a></li>
+				<li class="til">
+					<h2><a href="">郑州市政府考察团来筑考察：携手共进 共同发展</a></h2>
+					<p>8月20日至21日，郑州市委副书记、市长马懿率郑州市政府考察团来筑考察。贵阳市委副书记、市长刘文新陪同.....</p>
+				</li>
+				<li class="date">
+					<p>编辑：gaoshan</p>
+					<p>日期：2015-10-13</p>
+				</li>
+			</ul>
+		</div>
+		<div class="news_list">
+			<ul>
+				<li class="pho"><a href=""><img src="images/news.jpg" width="120" height="80" /></a></li>
+				<li class="til">
+					<h2><a href="">郑州市政府考察团来筑考察：携手共进 共同发展</a></h2>
+					<p>8月20日至21日，郑州市委副书记、市长马懿率郑州市政府考察团来筑考察。贵阳市委副书记、市长刘文新陪同.....</p>
+				</li>
+				<li class="date">
+					<p>编辑：gaoshan</p>
+					<p>日期：2015-10-13</p>
+				</li>
+			</ul>
+		</div>
+		<div class="news_list">
+			<ul>
+				<li class="pho"><a href=""><img src="images/news.jpg" width="120" height="80" /></a></li>
+				<li class="til">
+					<h2><a href="">郑州市政府考察团来筑考察：携手共进 共同发展</a></h2>
+					<p>8月20日至21日，郑州市委副书记、市长马懿率郑州市政府考察团来筑考察。贵阳市委副书记、市长刘文新陪同.....</p>
+				</li>
+				<li class="date">
+					<p>编辑：gaoshan</p>
+					<p>日期：2015-10-13</p>
+				</li>
+			</ul>
+		</div>
+		<div class="news_list">
+			<ul>
+				<li class="pho"><a href=""><img src="images/news.jpg" width="120" height="80" /></a></li>
+				<li class="til">
+					<h2><a href="">郑州市政府考察团来筑考察：携手共进 共同发展</a></h2>
+					<p>8月20日至21日，郑州市委副书记、市长马懿率郑州市政府考察团来筑考察。贵阳市委副书记、市长刘文新陪同.....</p>
+				</li>
+				<li class="date">
+					<p>编辑：gaoshan</p>
+					<p>日期：2015-10-13</p>
+				</li>
+			</ul>
+		</div>
+		<div class="news_list">
+			<ul>
+				<li class="pho"><a href=""><img src="images/news.jpg" width="120" height="80" /></a></li>
+				<li class="til">
+					<h2><a href="">郑州市政府考察团来筑考察：携手共进 共同发展</a></h2>
+					<p>8月20日至21日，郑州市委副书记、市长马懿率郑州市政府考察团来筑考察。贵阳市委副书记、市长刘文新陪同.....</p>
+				</li>
+				<li class="date">
+					<p>编辑：gaoshan</p>
+					<p>日期：2015-10-13</p>
+				</li>
+			</ul>
+		</div>
+		<div class="news_list">
+			<ul>
+				<li class="pho"><a href=""><img src="images/news.jpg" width="120" height="80" /></a></li>
+				<li class="til">
+					<h2><a href="">郑州市政府考察团来筑考察：携手共进 共同发展</a></h2>
+					<p>8月20日至21日，郑州市委副书记、市长马懿率郑州市政府考察团来筑考察。贵阳市委副书记、市长刘文新陪同.....</p>
+				</li>
+				<li class="date">
+					<p>编辑：gaoshan</p>
+					<p>日期：2015-10-13</p>
+				</li>
+			</ul>
+		</div>
+
+
+
+<!--分页-->
+			<div class="pag">
+				<ul>
+					<li><a href="">首页</a></li>
+					<li><a href="">上一页</a></li>
+					<li><a href=""><span>1</span></a></li>
+					<li><a href="">2</a></li>
+					<li><a href="">3</a></li>
+					<li><a href="">4</a></li>
+					<li><a href="">5</a></li>
+					<li><a href="">...</a></li>
+					<li><a href="">下一页</a></li>
+					<li class="later"><a href="">末页</a></li>
+				</ul>
+			</div>			
+	</div>
+<!--右边的内容结束-->
+</div>
+<!--列表盒子结束-->
+<div class="clear"></div>
+<!--版权所有-->
+<div class="copyright">
+<!--版权中间盒子-->
+<div class="copright_big">
+<!--关于我们-->
+	<div class="about">
+		<div class="about_top">
+			<h3>ABOUT US</h3>
+			<span>关于我们</span>
+		</div>
+		<div class="about_cont">
+			<p>　　济源市国龙生物科技有限公司是一家新兴的集科、工、贸为一体的高新技术企业。以发展我国生态农业，保护生态环境，提高农作物产品的品质为目标，公司以高新技术为支柱.......</p>
+			<a href=""><img src="images/more.jpg" width="139" height="39" alt="了解更多" /></a>
+		</div>
+	</div>
+<!--公司资料-->
+	<div class="navication">
+		<div class="navication_top">
+			<h3>NAVICATION</h3>			
+		</div>
+		<div class="navication_bottom">
+			<ul>
+				<li><a href="">首页 HOME</a></li>
+				<li><a href="">资质荣誉</a></li>
+				<li><a href="">公司简介</a></li>
+				<li><a href="">人才招聘</a></li>
+				<li><a href="">产品展示</a></li>
+				<li><a href="">客户留言</a></li>
+				<li><a href="">新闻动态</a></li>         
+				<li><a href="">联系我们</a></li>
+			</ul>
+		</div>
+	</div>
+<!--联系方式-->
+	<div class="tel">
+		<div class="tel_top">
+			<h3>CONTACT INFO</h3>
+			<span>联系我们</span>						
+		</div>
+		<div class="tel_bottom">
+			<ul>
+				<li>address：济源市玉泉办事处科技创业园</li>
+				<li>phone：<span>400-0391-986</span></li>
+				<li>Email：1392763297@qq.com</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+<!--以上是版权所有-->
+<script>
+		// tab切换
+		jQuery(".goods-tab").slide({delayTime:0 });
+		// 菜单
+		jQuery("#navs").slide({ 
+				type:"menu", //效果类型
+				titCell:".mainCate", // 鼠标触发对象
+				targetCell:".subCate", // 效果对象，必须被titCell包含
+				delayTime:0, // 效果时间
+				triggerTime:0, //鼠标延迟触发时间
+				defaultPlay:false,//默认执行
+				returnDefault:true//返回默认
+			});
+		jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click",delayTime:500 });
+</script>
+<script type="text/javascript">
+$(function(){ 
+
+	$(".navRight li").click(function(){
+		$(this).addClass("active").siblings("li").removeClass("active");
+	});
+
+	$(".navLeft").hover(function(){
+		$("#navs").show();
+	},function(){
+		$("#navs").hide();
+	})
+	
+});
+
+</script>
+<script type="text/javascript" src="js/home.js"></script>
+<script>
+		// tab切换
+		jQuery(".goods-tab").slide({delayTime:0 });
+		// 菜单
+		jQuery("#navs").slide({ 
+				type:"menu", //效果类型
+				titCell:".mainCate", // 鼠标触发对象
+				targetCell:".subCate", // 效果对象，必须被titCell包含
+				delayTime:0, // 效果时间
+				triggerTime:0, //鼠标延迟触发时间
+				defaultPlay:false,//默认执行
+				returnDefault:true//返回默认
+			});
+		jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click",delayTime:500 });
+</script>
+</body>
+</html>

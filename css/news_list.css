@@ -1,0 +1,69 @@
+
+/*产品盒子*/
+.product_big{width:1200px;height:auto;margin:0 auto;}
+/*左边内容*/
+.product_left{width:324px;height:auto;float:left;}
+.product_til{width:275px;height:auto;border-bottom:1px solid #dbdbdb;}
+.product_left h1{width:65px;height:22px;margin-top:20px;font-size:16px;font-weight:bold;border-bottom:2px solid #315e2f;color:#315e2f;}
+.product_list{width:275px;}
+.product_list ul{}
+.product_list ul li{width:275px;height:52px;line-height:52px;text-align:center;border-bottom:1px solid #dbdbdb;}
+.product_list ul a:hover{width:275px;height:52px;display:block;background:#f6f6f6;font-size:16px;}
+.product_list ul a{color:#315e2f;}
+/*热销产品*/
+.hot_product{}
+.hot_product_til{width:275px;height:auto;border-bottom:1px solid #dbdbdb;margin-top:30px;font-size:12px;}
+.hot_product_til span{font-size:20px;color:red;}
+.hot_product_til a{padding-left:5px;}
+.hot_product_til a:hover{color:#315e2f;}
+/*广告位*/
+.ad{width:275px;height:140px;border-top:1px solid #8bd169;border-bottom:1px solid #8bd169;}
+.ad img{margin-top:15px;}
+.product_list_news ul{margin-top:10px;}
+.product_list_news ul li{line-height:30px;margin-left:10px;}
+.product_list_news ul li a:hover{color:#315e2f;}
+/**联系我们**/
+.contact{ width: 275px; height: 222px; background: #e9fce9; margin-top:20px;}
+.contact_title{ width: 275px; height: 66px; background: url("../images/contact_title.jpg") no-repeat;}
+.contact p{ text-align: center; font-size: 18px; color: #91d266; padding: 16px 0;}
+.contactPhone{ border-top: 1px solid #029141; border-bottom: 1px solid #029141; padding: 15px 10px;}
+.contactPhone ul{ height: 64px; padding-left: 50px; background: url("../images/phone_icon.jpg") no-repeat left center;}
+.contactPhone ul li{ padding: 6px 0; font-size: 14px; color: #029141; }
+/*右边内容*/
+.product_right{width:876px;height:auto;float:left;}
+.product_right_til{width:876px;height:33px;background:#0275b8;margin-top:20px;}
+.product_right_til span{color:#fff;line-height:33px;padding-left:20px;}
+.product_right_til span a{color:#fff;}
+.product_right_til span a:hover{color:#32602f;}
+/*新闻列表*/
+.news_list{height:100px;margin-top:30px;border-bottom:1px solid #98ae97;}
+.news_list ul{}
+.news_list ul li{float:left;height:80px;}
+.news_list .pho{width:120px;height:80px;}
+.news_list .til{width:548px;height:80px;padding:0 20px 0 30px;}
+.news_list .til h2{font-size:20px;}
+.news_list .til p{margin-top:5px;}
+.news_list .date{width:155px;height:80px;border-left:3px solid #839e82;}
+.news_list .date p{margin-top:12px;margin-left:16px;}
+/*分页*/
+.pag{width:550px;height:40px;clear:both;margin:0 auto;padding-top:20px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
